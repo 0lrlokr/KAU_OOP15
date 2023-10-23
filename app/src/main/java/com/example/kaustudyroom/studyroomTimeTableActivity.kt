@@ -3,6 +3,7 @@ package com.example.kaustudyroom
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.databinding.ActivityMainBinding
 import com.example.kaustudyroom.databinding.ActivityStudyroomTimeTableBinding
 
@@ -27,9 +28,13 @@ class studyroomTimeTableActivity: AppCompatActivity() {
 
     lateinit var binding : ActivityStudyroomTimeTableBinding
     // Android Data Binding 라이브러리를 사용하여 생성된 클래스 ( 뷰 요소와 바인딩하고 상호작용 하기 위함 )
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: TimetableAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_studyroom_time_table)
+        binding = ActivityStudyroomTimeTableBinding.inflate(layoutInflater) // 바인딩 초기화
+
+        setContentView(binding.root) // binding으로 XML 레이아웃 설정하기
 
         binding.recTimetable.layoutManager = LinearLayoutManager(this) // 어떻게 item들을 쌓을 것인가 (차곡차곡 쌓을 것)
         binding.recTimetable.adapter = TimetableAdapter(timeTable)

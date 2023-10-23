@@ -15,8 +15,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnSwitchTimetable.setOnClickListener{
             binding.txtConfirm.text = "click confrimed "
-//            val nextIntent = Intent(this, studyroomTimeTableActivity::class.java)
-//            startActivity(nextIntent)
+            val nextIntent = Intent(this, studyroomTimeTableActivity::class.java)
+            startActivity(nextIntent)
         }
     }
 }
