@@ -5,12 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rec_timetable"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2층 studyroom" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_timetable"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="선택완료" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

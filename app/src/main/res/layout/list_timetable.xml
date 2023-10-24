@@ -5,24 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_time"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="09:00 ~ 10:00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_studyroomState"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
 
-    <ToggleButton
-        android:id="@+id/btn_studyroomState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="예약 가능 "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_time"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btn_time"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="09:00 ~ 10:00" />
+
+        <ToggleButton
+            android:id="@+id/btn_studyroomState"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="예약 가능 " />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
