@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnSwitchTimetable.setOnClickListener{
+        binding.btnSwitch.setOnClickListener{
             binding.txtConfirm.text = "click confrimed "
             val nextIntent = Intent(this, studyroomTimeTableActivity::class.java)
             startActivity(nextIntent)
