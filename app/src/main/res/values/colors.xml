@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<!--drawable 파일 대신 colors.xml에서 정의하고 사용가능한가 ? -->
+
 </resources>

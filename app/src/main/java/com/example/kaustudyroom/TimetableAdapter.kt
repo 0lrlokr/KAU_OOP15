@@ -1,7 +1,6 @@
 package com.example.kaustudyroom
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.databinding.ListTimetableBinding
@@ -22,12 +21,29 @@ class TimetableAdapter(val timeTable : Array<StudyroomTimeTable>) :RecyclerView.
 
     class Holder(private val binding : ListTimetableBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(timeTable:StudyroomTimeTable){
-//             binding.요소 = when( timeTable.state){
-//                 Estate.InUse -> R...
-//                 Estate.NotAvailable->R...
-//                 Estate.InUse -> R.. //     }
             binding.btnTime.text = timeTable.time
+
+            // btnStudyroomState에 관한 것으로 묶을 수 있다면 묶기
             binding.btnStudyroomState.text = timeTable.state.toString()
+
+            binding.btnStudyroomState.isClickable = timeTable.state == Estate.Available
+
+
+            //이 코드 어떻게 클린하게 하는지 .. (질문)
+            when(timeTable.state){
+                Estate.InUse -> {
+                    binding.btnStudyroomState.setBackgroundResource(R.drawable.gray_color)
+                }
+
+                Estate.NotAvailable ->{
+                    binding.btnStudyroomState.setBackgroundResource(R.drawable.gray_color)
+                }
+                Estate.Available ->{
+                    binding.btnStudyroomState.setBackgroundResource(R.drawable.skyblue_color)
+                    binding.btnStudyroomState.textOff = timeTable.state.toString()
+                }
+
+            }
         }
     }
 }
