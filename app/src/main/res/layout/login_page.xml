@@ -85,7 +85,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/id" />
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btnLogin"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="500dp"
@@ -100,11 +100,13 @@
                 android:id="@+id/signature"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="700dp"
+                android:layout_marginTop="650dp"
                 android:layout_marginBottom="50dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/signature" />
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/signature"
+                tools:layout_editor_absoluteX="0dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
