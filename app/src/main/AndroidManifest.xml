@@ -26,6 +26,9 @@
         <activity
             android:name=".studyroomTimeTableActivity">
         </activity>
+        <activity
+            android:name=".PointActivity">
+        </activity>
     </application>
 
 </manifest>
