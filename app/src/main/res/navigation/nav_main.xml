@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.kaustudyroom.LoginFragment"
+        android:label="login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.kaustudyroom.MainFragment"
+        android:label="HOME"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_pointFragment"
+            app:destination="@id/pointFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_studyRoomFragment"
+            app:destination="@id/studyRoomFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_reservationConfirmFragment"
+            app:destination="@id/reservationConfirmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointFragment"
+        android:name="com.example.kaustudyroom.PointFragment"
+        android:label="스터디룸 입실 확인"
+        tools:layout="@layout/fragment_point" />
+    <fragment
+        android:id="@+id/studyRoomTimeTableFragment"
+        android:name="com.example.kaustudyroom.StudyRoomTimeTableFragment"
+        android:label="스터디룸 예약"
+        tools:layout="@layout/fragment_study_room_time_table">
+        <action
+            android:id="@+id/action_studyRoomTimeTableFragment_to_additionalInformationFragment"
+            app:destination="@id/additionalInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studyRoomFragment"
+        android:name="com.example.kaustudyroom.StudyRoomFragment"
+        android:label="스터디룸 예약"
+        tools:layout="@layout/fragment_study_room">
+        <action
+            android:id="@+id/action_studyRoomFragment_to_studyRoomTimeTableFragment"
+            app:destination="@id/studyRoomTimeTableFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/additionalInformationFragment"
+        android:name="com.example.kaustudyroom.AdditionalInformationFragment"
+        android:label="스터디룸 예약"
+        tools:layout="@layout/fragment_additional_information" />
+    <fragment
+        android:id="@+id/reservationConfirmFragment"
+        android:name="com.example.kaustudyroom.ReservationConfirmFragment"
+        android:label="예약 확인"
+        tools:layout="@layout/fragment_reservation_confirm" />
+</navigation>
