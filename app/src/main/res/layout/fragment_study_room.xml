@@ -7,13 +7,95 @@
     android:layout_height="match_parent"
     tools:context=".StudyRoomFragment">
 
-    <Button
-        android:id="@+id/btnStudyRoomTimeTable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="StudyRoomTimeTable"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txt_today"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="10월 31일 화요일"
+            android:textColor="@color/kaublue"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radiogroup_floor"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_margin="16dp">
+
+            <RadioButton
+                android:id="@+id/radio_floor2"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="0dp"
+                android:background="@drawable/selector_radio"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:text="2층"
+                android:textColor="@drawable/selector_radio_txt"
+                android:textSize="24sp"
+                android:elevation="10dp"/>
+
+            <RadioButton
+                android:id="@+id/radio_floor3"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_radio"
+                android:button="@null"
+                android:gravity="center"
+                android:text="3층"
+                android:textColor="@drawable/selector_radio_txt"
+                android:textSize="24sp"
+                android:elevation="10dp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="※스터디룸 예약은 당일만 가능합니다."
+            android:textColor="#cdcdcd" />
+
+        <Button
+            android:id="@+id/btn_roomA"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/text_corner"
+            android:text="2층 스터디룸 A"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_roomB"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/text_corner"
+            android:text="2층 스터디룸 B"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_roomC"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/text_corner"
+            android:text="2층 스터디룸 C"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

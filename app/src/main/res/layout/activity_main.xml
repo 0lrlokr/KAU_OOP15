@@ -24,8 +24,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frg_studyroom"
-        app:menu="@menu/mune_top"
-        tools:layout_editor_absoluteX="109dp" />
+        app:menu="@menu/menu_top" />
 </androidx.constraintlayout.widget.ConstraintLayout>
