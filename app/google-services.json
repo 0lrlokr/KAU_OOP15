@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "208312802997",
+    "project_id": "oop-team15",
+    "storage_bucket": "oop-team15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208312802997:android:34ffa6fa3fc40b33cda8fc",
+        "android_client_info": {
+          "package_name": "com.example.kaustudyroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZHCHBetXzuQx0pd3rzE1g0CcSe3_TKHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208312802997:android:558e95723b103ef5cda8fc",
+        "android_client_info": {
+          "package_name": "oop.reservation_studyroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZHCHBetXzuQx0pd3rzE1g0CcSe3_TKHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
