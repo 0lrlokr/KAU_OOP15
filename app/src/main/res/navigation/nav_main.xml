@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_point" />
     <fragment
         android:id="@+id/studyRoomTimeTableFragment"
-        android:name="com.example.kaustudyroom.StudyRoomTimeTableFragment"
+        android:name="com.example.kaustudyroom.pages.StudyRoomTimeTable.StudyRoomTimeTableFragment"
         android:label="스터디룸 예약"
         tools:layout="@layout/fragment_study_room_time_table">
         <action
@@ -58,7 +58,7 @@
         tools:layout="@layout/fragment_additional_information" />
     <fragment
         android:id="@+id/reservationConfirmFragment"
-        android:name="com.example.kaustudyroom.ReservationConfirmFragment"
+        android:name="com.example.kaustudyroom.pages.ReservationConfirm.ReservationConfirmFragment"
         android:label="예약 확인"
         tools:layout="@layout/fragment_reservation_confirm" />
 </navigation>

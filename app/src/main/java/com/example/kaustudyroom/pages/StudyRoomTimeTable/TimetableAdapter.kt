@@ -1,18 +1,19 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.StudyRoomTimeTable
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.ListTimetableBinding
 
 class TimetableAdapter(val timeTable : Array<StudyroomTimeTable>) :RecyclerView.Adapter<TimetableAdapter.Holder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimetableAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListTimetableBinding.inflate(LayoutInflater.from(parent.context))
         return Holder(binding)
     }
 
-    override fun onBindViewHolder(holder: TimetableAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(timeTable[position])
     }
 
@@ -20,7 +21,7 @@ class TimetableAdapter(val timeTable : Array<StudyroomTimeTable>) :RecyclerView.
 
 
     class Holder(private val binding : ListTimetableBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(timeTable:StudyroomTimeTable){
+        fun bind(timeTable: StudyroomTimeTable){
             binding.btnTime.text = timeTable.time
 
             // btnStudyroomState에 관한 것으로 묶을 수 있다면 묶기

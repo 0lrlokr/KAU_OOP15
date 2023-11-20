@@ -1,4 +1,4 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.StudyRoomTimeTable
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

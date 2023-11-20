@@ -1,4 +1,4 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.StudyRoomTimeTable
 
 
 enum class Estate {
@@ -8,4 +8,5 @@ enum class Estate {
 }
 data class StudyroomTimeTable (val time:String,
                                val id:Int ,
-                               val state: Estate)
+                               val state: Estate
+)
