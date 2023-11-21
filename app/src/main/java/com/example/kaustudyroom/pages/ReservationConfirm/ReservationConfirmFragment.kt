@@ -32,7 +32,7 @@ class ReservationConfirmFragment : Fragment() {
     private val reservedRoom = arrayOf(
         ReservedRoomVO(1,"nJetJfyNZ5Sztj69ny940W2LJUc2","9-10", 2 ," C1", "사람 1 사람 2 사람 3 ", "공부 좀 하자 " ),
         ReservedRoomVO(2,"nJetJfyNZ5Sztj69ny940W2LJUc2","10-11",2,"C2","사람 1 사람 2 사람 3 ", "공부공부"),
-        ReservedRoomVO(3,"nJetJfyNZ5Sztj69ny940W2LJUc2","11-12", 2,"C3", "사람4 사람 5 사람 6 ", "공부해라 ~ " )
+        ReservedRoomVO(3,"nJetJfyNZ5Sztj69ny940W2LJUc2","11-12", 3,"B1", "사람4 사람 5 사람 6 ", "공부해라 ~ " )
     )
 
 

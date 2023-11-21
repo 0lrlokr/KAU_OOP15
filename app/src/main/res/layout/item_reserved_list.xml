@@ -26,7 +26,7 @@
         android:layout_weight="1">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/room_img_view"
             android:layout_width="179dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -43,9 +43,10 @@
                 android:id="@+id/reserved_room"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:text="2층 스터디룸 C1"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textSize="15sp" />
 
             <TextView

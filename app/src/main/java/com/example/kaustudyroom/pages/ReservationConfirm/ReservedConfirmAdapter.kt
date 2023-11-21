@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
+import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.ItemReservedListBinding
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
 
@@ -27,6 +28,19 @@ class ReservedConfirmAdapter(val rList: Array<ReservedRoomVO>):
             binding.reservedRoom.text = rList.floor.toString() + "층 " + rList.room
             binding.roomCompanion.text = "동반인: "+rList.companion
             binding.roomPurpose.text = "목적 : "+rList.purpose
+
+            when(rList.room){
+                "C1" -> binding.roomImgView.setImageResource(R.drawable._c1)
+                "C2" -> binding.roomImgView.setImageResource(R.drawable._c2)
+                "C3" -> binding.roomImgView.setImageResource(R.drawable._c3)
+                "A1" -> binding.roomImgView.setImageResource(R.drawable._a1)
+                "B1" -> binding.roomImgView.setImageResource(R.drawable._b1)
+                "B2" -> binding.roomImgView.setImageResource(R.drawable._b2)
+
+
+
+
+            }
         }
     }
 
