@@ -22,7 +22,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2층 studyroom"
+            android:text="2층 스터디룸"
             android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -33,7 +33,7 @@
             android:layout_marginEnd="16dp" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btn_choose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="선택완료" />

@@ -40,7 +40,9 @@
         tools:layout="@layout/fragment_study_room_time_table">
         <action
             android:id="@+id/action_studyRoomTimeTableFragment_to_additionalInformationFragment"
-            app:destination="@id/additionalInformationFragment" />
+            app:destination="@id/additionalInformationFragment"
+            app:popUpTo="@id/studyRoomFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/studyRoomFragment"
@@ -49,7 +51,9 @@
         tools:layout="@layout/fragment_study_room">
         <action
             android:id="@+id/action_studyRoomFragment_to_studyRoomTimeTableFragment"
-            app:destination="@id/studyRoomTimeTableFragment" />
+            app:destination="@id/studyRoomTimeTableFragment"
+            app:popUpTo="@id/studyRoomFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/additionalInformationFragment"

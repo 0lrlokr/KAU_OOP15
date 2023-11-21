@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.FragmentStudyRoomTimeTableBinding
 
 class StudyRoomTimeTableFragment : Fragment() {
@@ -41,6 +43,10 @@ class StudyRoomTimeTableFragment : Fragment() {
 
         binding?.recTimetable?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recTimetable?.adapter = TimetableAdapter(timeTable)
+
+        binding?.btnChoose?.setOnClickListener {
+            findNavController().navigate(R.id.action_studyRoomTimeTableFragment_to_additionalInformationFragment)
+        }
     }
     override fun onDestroyView() {
         super.onDestroyView()
