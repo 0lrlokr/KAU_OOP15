@@ -27,21 +27,18 @@ class StudyRoomFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dateTextView = binding?.txtToday
         val currentDate = Date()            // 현재 날짜 가져오기
         val sdf = SimpleDateFormat("MM월 dd일 EEEE", Locale.KOREAN)       // 텍스트 형식 포맷
-        val formattedDate = sdf.format(currentDate)
-
-        dateTextView?.text = formattedDate              // TextView에 현재 날짜 설정
+        binding?.txtToday?.text = sdf.format(currentDate)        // TextView에 현재 날짜 설정
 
         val radioGroup = binding?.radiogroupFloor
         radioGroup?.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_floor2 -> {
-                    updateRoomButtons("2층")
+                    updateRoomBtn("2층")
                 }
                 R.id.radio_floor3 -> {
-                    updateRoomButtons("3층")
+                    updateRoomBtn("3층")
                 }
             }
         }
@@ -57,10 +54,16 @@ class StudyRoomFragment : Fragment() {
         }
     }
 
-    private fun updateRoomButtons(floor: String) {
-        binding?.btnRoomA?.text = "$floor 스터디룸 A"
-        binding?.btnRoomB?.text = "$floor 스터디룸 B"
-        binding?.btnRoomC?.text = "$floor 스터디룸 C"
+    private fun updateRoomBtn(floor: String) {
+        if (floor == "2층") {
+            binding?.btnRoomA?.text = "$floor 스터디룸 C1"
+            binding?.btnRoomB?.text = "$floor 스터디룸 C2"
+            binding?.btnRoomC?.text = "$floor 스터디룸 C3"
+        } else if (floor == "3층") {
+            binding?.btnRoomA?.text = "$floor 스터디룸 A"
+            binding?.btnRoomB?.text = "$floor 스터디룸 B1"
+            binding?.btnRoomC?.text = "$floor 스터디룸 B2"
+        }
     }
 
     private fun navTimeTableFrag() {
