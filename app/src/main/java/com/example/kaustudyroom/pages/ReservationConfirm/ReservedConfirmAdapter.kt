@@ -23,10 +23,10 @@ class ReservedConfirmAdapter(val rList: Array<ReservedRoomVO>):
 
     class ReservationViewHolder(private val binding: ItemReservedListBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(rList : ReservedRoomVO){
-            binding.reservedTime.text = rList.time
-            binding.reservedRoom.text = rList.room
-            binding.roomCompanion.text = rList.companion
-            binding.roomPurpose.text = rList.purpose
+            binding.reservedTime.text = "| "+ rList.time_slot
+            binding.reservedRoom.text = rList.floor.toString() + "층 " + rList.room
+            binding.roomCompanion.text = "동반인: "+rList.companion
+            binding.roomPurpose.text = "목적 : "+rList.purpose
         }
     }
 
