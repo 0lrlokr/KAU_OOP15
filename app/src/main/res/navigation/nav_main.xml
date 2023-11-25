@@ -41,8 +41,8 @@
         <action
             android:id="@+id/action_studyRoomTimeTableFragment_to_additionalInformationFragment"
             app:destination="@id/additionalInformationFragment"
-            app:popUpTo="@id/studyRoomFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/studyRoomTimeTableFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/studyRoomFragment"
@@ -53,13 +53,19 @@
             android:id="@+id/action_studyRoomFragment_to_studyRoomTimeTableFragment"
             app:destination="@id/studyRoomTimeTableFragment"
             app:popUpTo="@id/studyRoomFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/additionalInformationFragment"
         android:name="com.example.kaustudyroom.AdditionalInformationFragment"
         android:label="스터디룸 예약"
-        tools:layout="@layout/fragment_additional_information" />
+        tools:layout="@layout/fragment_additional_information" >
+        <action
+            android:id="@+id/action_additionalInformationFragment_to_reservationConfirmFragment"
+            app:destination="@id/reservationConfirmFragment"
+            app:popUpTo="@id/studyRoomFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/reservationConfirmFragment"
         android:name="com.example.kaustudyroom.pages.ReservationConfirm.ReservationConfirmFragment"

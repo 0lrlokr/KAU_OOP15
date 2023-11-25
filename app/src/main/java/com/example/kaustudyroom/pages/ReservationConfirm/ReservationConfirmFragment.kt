@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.FragmentReservationConfirmBinding
 import com.example.kaustudyroom.modelFront.CalendarVO
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
+import com.example.kaustudyroom.viewmodel.StudyRoomDataViewModel
 import java.time.DayOfWeek
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -21,6 +23,7 @@ import java.time.temporal.TemporalAdjusters
 import java.util.Locale
 
 class ReservationConfirmFragment : Fragment() {
+    val viewModel: StudyRoomDataViewModel by activityViewModels()
     var binding: FragmentReservationConfirmBinding? = null
 
     lateinit var calendarAdapter: CalenderAdapter
@@ -60,6 +63,17 @@ class ReservationConfirmFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // viewmodel 확인용 Logcat print
+        viewModel.userName.observe(viewLifecycleOwner) { name ->
+            Log.d("Fragment3", "name: $name")
+        }
+        viewModel.companions.observe(viewLifecycleOwner) { companions ->
+            Log.d("Fragment3", "companions: $companions")
+        }
+        viewModel.purpose.observe(viewLifecycleOwner) { purpose ->
+            Log.d("Fragment3", "purpose: $purpose")
+        }
 
         reservedRoomAdapter = ReservedConfirmAdapter(reservedRoom)
         val week_day : Array<String> = resources.getStringArray(R.array.calendar_day)

@@ -2,12 +2,12 @@ package com.example.kaustudyroom.pages.StudyRoomTimeTable
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.ListTimetableBinding
 
-class TimetableAdapter(val timeTable : Array<StudyroomTimeTable>) :RecyclerView.Adapter<TimetableAdapter.Holder>(){
-
+class TimetableAdapter(private val timeTable: Array<StudyroomTimeTable>, private val onTimeSlotSelected: (String, Boolean) -> Unit) :RecyclerView.Adapter<TimetableAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListTimetableBinding.inflate(LayoutInflater.from(parent.context))
         return Holder(binding)
@@ -15,12 +15,20 @@ class TimetableAdapter(val timeTable : Array<StudyroomTimeTable>) :RecyclerView.
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(timeTable[position])
+
+        val timeSlot = timeTable[position]
+        holder.toggleButton.setOnCheckedChangeListener(null)
+        holder.toggleButton.isChecked = timeSlot.isSelected
+        holder.toggleButton.setOnCheckedChangeListener { _, isChecked ->
+            onTimeSlotSelected(timeSlot.time, isChecked)
+        }
     }
 
     override fun getItemCount() = timeTable.size
 
 
     class Holder(private val binding : ListTimetableBinding) : RecyclerView.ViewHolder(binding.root){
+        val toggleButton: ToggleButton = binding.btnStudyroomState
         fun bind(timeTable: StudyroomTimeTable){
             binding.btnTime.text = timeTable.time
 

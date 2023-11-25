@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txt_studyroom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -37,13 +37,12 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/txt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="이름을 입력해주세요."
-            android:textColor="#777777" />
+            android:hint="이름을 입력하세요."
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/textView6"
@@ -55,13 +54,12 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/txt_companion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="text"
-            android:text="이름을 입력해주세요."
-            android:textColor="#FF777777" />
+            android:hint="이름을 입력하세요."
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/textView7"
@@ -73,14 +71,13 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/editTextText3"
+            android:id="@+id/txt_purpose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             android:ems="10"
-            android:inputType="text"
-            android:text="사용 목적을 추가해주세요."
-            android:textColor="#FF777777" />
+            android:hint="사용 목적을 입력하세요."
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/textView9"
@@ -107,7 +104,7 @@
             android:text="3. 반드시 30분 이내 입실하지 않는 경우 이용 금지 (1회 적발시 1개월, 2회 적발시 2개월, 3회 적발시 3개월 예약 금지)" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"

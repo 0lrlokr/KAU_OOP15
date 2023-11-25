@@ -25,7 +25,6 @@ class PointFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding?.recPoints?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recPoints?.adapter = PointAdapter(points)
     }

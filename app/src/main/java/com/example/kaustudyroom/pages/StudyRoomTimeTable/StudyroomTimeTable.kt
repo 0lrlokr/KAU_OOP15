@@ -6,7 +6,9 @@ enum class Estate {
     InUse,   // 사용중
     NotAvailable // 예약불가
 }
-data class StudyroomTimeTable (val time:String,
-                               val id:Int ,
-                               val state: Estate
+data class StudyroomTimeTable(
+    val time: String,
+    val id: Int,
+    val state: Estate,
+    val isSelected: Boolean
 )

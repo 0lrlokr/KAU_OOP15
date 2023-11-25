@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kaustudyroom.databinding.FragmentStudyRoomBinding
+import com.example.kaustudyroom.viewmodel.StudyRoomDataViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class StudyRoomFragment : Fragment() {
-
+    val viewModel: StudyRoomDataViewModel by activityViewModels()
     var binding: FragmentStudyRoomBinding?= null
+    var selectedFloor: String = "2층"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,20 +39,32 @@ class StudyRoomFragment : Fragment() {
             when (checkedId) {
                 R.id.radio_floor2 -> {
                     updateRoomBtn("2층")
+                    selectedFloor = "2층"
                 }
                 R.id.radio_floor3 -> {
                     updateRoomBtn("3층")
+                    selectedFloor = "3층"
                 }
             }
         }
 
         binding?.btnRoomA?.setOnClickListener {
-            navTimeTableFrag()
+            setupRoomButton(binding?.btnRoomA!!, "C1", "A")
         }
         binding?.btnRoomB?.setOnClickListener {
-            navTimeTableFrag()
+            setupRoomButton(binding?.btnRoomB!!, "C2", "B1")
         }
         binding?.btnRoomC?.setOnClickListener {
+            setupRoomButton(binding?.btnRoomC!!, "C3", "B2")
+        }
+    }
+
+    private fun setupRoomButton(button: Button, roomIfSecondFloor: String, roomIfThirdFloor: String) {
+        button.setOnClickListener {
+            val selectedRoom = if (selectedFloor === "2층") roomIfSecondFloor else roomIfThirdFloor
+            selectedFloor?.let { floor ->
+                viewModel.updateRoomDetails(floor, selectedRoom)
+            }
             navTimeTableFrag()
         }
     }
