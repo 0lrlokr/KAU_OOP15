@@ -32,7 +32,11 @@
         android:id="@+id/pointFragment"
         android:name="com.example.kaustudyroom.PointFragment"
         android:label="스터디룸 입실 확인"
-        tools:layout="@layout/fragment_point" />
+        tools:layout="@layout/fragment_point" >
+        <action
+            android:id="@+id/action_pointFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
     <fragment
         android:id="@+id/studyRoomTimeTableFragment"
         android:name="com.example.kaustudyroom.pages.StudyRoomTimeTable.StudyRoomTimeTableFragment"
@@ -71,4 +75,13 @@
         android:name="com.example.kaustudyroom.pages.ReservationConfirm.ReservationConfirmFragment"
         android:label="예약 확인"
         tools:layout="@layout/fragment_reservation_confirm" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.example.kaustudyroom.CameraFragment"
+        android:label="입실확인 사진 촬영"
+        tools:layout="@layout/fragment_camera">
+        <action
+            android:id="@+id/action_cameraFragment_to_pointFragment"
+            app:destination="@id/pointFragment" />
+    </fragment>
 </navigation>

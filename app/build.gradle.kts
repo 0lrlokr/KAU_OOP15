@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.example.kaustudyroom"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -37,9 +37,6 @@ android {
     viewBinding{
         enable = true
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -52,6 +49,27 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
     implementation("com.google.firebase:firebase-auth:22.2.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
+
+    // camera2 library
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation ("androidx.camera:camera-camera2:1.0.0")
+    implementation ("androidx.camera:camera-lifecycle:1.0.0")
+    implementation ("androidx.camera:camera-view:1.0.0-alpha20")
+
+    // material design
+    implementation ("com.google.android.material:material:1.10.0")
+    // coroutine
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    // permission
+    implementation ("com.github.florent37:runtime-permission-kotlin:1.1.1")
+    implementation("com.google.firebase:firebase-storage:20.3.0")
+
+    // firebase storage
+    implementation ("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
