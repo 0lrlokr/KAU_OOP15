@@ -17,7 +17,7 @@ import java.util.Locale
 class StudyRoomFragment : Fragment() {
     val viewModel: StudyRoomDataViewModel by activityViewModels()
     var binding: FragmentStudyRoomBinding?= null
-    var selectedFloor: String = "2층"
+    var selectedFloor: Int = 2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +38,12 @@ class StudyRoomFragment : Fragment() {
         radioGroup?.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radio_floor2 -> {
-                    updateRoomBtn("2층")
-                    selectedFloor = "2층"
+                    updateRoomBtn(2)
+                    selectedFloor = 2
                 }
                 R.id.radio_floor3 -> {
-                    updateRoomBtn("3층")
-                    selectedFloor = "3층"
+                    updateRoomBtn(2)
+                    selectedFloor = 3
                 }
             }
         }
@@ -61,7 +61,7 @@ class StudyRoomFragment : Fragment() {
 
     private fun setupRoomButton(button: Button, roomIfSecondFloor: String, roomIfThirdFloor: String) {
         button.setOnClickListener {
-            val selectedRoom = if (selectedFloor === "2층") roomIfSecondFloor else roomIfThirdFloor
+            val selectedRoom = if (selectedFloor === 2) roomIfSecondFloor else roomIfThirdFloor
             selectedFloor?.let { floor ->
                 viewModel.updateRoomDetails(floor, selectedRoom)
             }
@@ -69,15 +69,15 @@ class StudyRoomFragment : Fragment() {
         }
     }
 
-    private fun updateRoomBtn(floor: String) {
-        if (floor == "2층") {
-            binding?.btnRoomA?.text = "$floor 스터디룸 C1"
-            binding?.btnRoomB?.text = "$floor 스터디룸 C2"
-            binding?.btnRoomC?.text = "$floor 스터디룸 C3"
-        } else if (floor == "3층") {
-            binding?.btnRoomA?.text = "$floor 스터디룸 A"
-            binding?.btnRoomB?.text = "$floor 스터디룸 B1"
-            binding?.btnRoomC?.text = "$floor 스터디룸 B2"
+    private fun updateRoomBtn(floor: Int) {
+        if (floor == 2) {
+            binding?.btnRoomA?.text = "$floor 층 스터디룸 C1"
+            binding?.btnRoomB?.text = "$floor 층 스터디룸 C2"
+            binding?.btnRoomC?.text = "$floor 층 스터디룸 C3"
+        } else if (floor == 3) {
+            binding?.btnRoomA?.text = "$floor 층 스터디룸 A"
+            binding?.btnRoomB?.text = "$floor 층 스터디룸 B1"
+            binding?.btnRoomC?.text = "$floor 층 스터디룸 B2"
         }
     }
 

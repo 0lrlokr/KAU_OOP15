@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/pointFragment"
-        android:name="com.example.kaustudyroom.PointFragment"
+        android:name="com.example.kaustudyroom.pages.PointNCamera.PointFragment"
         android:label="스터디룸 입실 확인"
         tools:layout="@layout/fragment_point" >
         <action
@@ -77,7 +77,7 @@
         tools:layout="@layout/fragment_reservation_confirm" />
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.example.kaustudyroom.CameraFragment"
+        android:name="com.example.kaustudyroom.pages.PointNCamera.CameraFragment"
         android:label="입실확인 사진 촬영"
         tools:layout="@layout/fragment_camera">
         <action

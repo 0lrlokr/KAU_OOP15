@@ -1,4 +1,4 @@
-package com.example.kaustudyroom.viewmodel
+package com.example.kaustudyroom.pages.PointNCamera
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

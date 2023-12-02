@@ -1,4 +1,4 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.PointNCamera
 
 data class Point(val date: String,
                  val room: String,

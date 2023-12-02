@@ -1,4 +1,4 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.PointNCamera
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kaustudyroom.databinding.FragmentPointBinding
-import com.example.kaustudyroom.viewmodel.SharedViewModel
 import com.bumptech.glide.Glide
+import com.example.kaustudyroom.R
 
 class PointFragment : Fragment() {
     var binding: FragmentPointBinding?= null

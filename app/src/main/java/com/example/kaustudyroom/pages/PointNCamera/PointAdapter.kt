@@ -1,4 +1,4 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.PointNCamera
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,13 @@ import com.example.kaustudyroom.databinding.ListPointBinding
 
 class PointAdapter(val point: Array<Point>): RecyclerView.Adapter<PointAdapter.Holder>() {
     // ViewHolder 객체를 생성하고 초기화
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PointAdapter.Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListPointBinding.inflate(LayoutInflater.from(parent.context))
         return Holder(binding)
     }
 
     // 데이터를 가져와 ViewHolder안의 내용을 채워줌
-    override fun onBindViewHolder(holder: PointAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(point[position])
     }
 

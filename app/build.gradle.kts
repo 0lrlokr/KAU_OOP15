@@ -69,6 +69,7 @@ dependencies {
     // firebase storage
     implementation ("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.camera:camera-core:1.3.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -33,9 +33,8 @@ class ReservationConfirmFragment : Fragment() {
     private lateinit var reservedRoomList : ArrayList<ReservedRoomVO>
 
     private val reservedRoom = arrayOf(
-        ReservedRoomVO(1,"nJetJfyNZ5Sztj69ny940W2LJUc2","9-10", 2 ," C1", "사람 1 사람 2 사람 3 ", "공부 좀 하자 " ),
-        ReservedRoomVO(2,"nJetJfyNZ5Sztj69ny940W2LJUc2","10-11",2,"C2","사람 1 사람 2 사람 3 ", "공부공부"),
-        ReservedRoomVO(3,"nJetJfyNZ5Sztj69ny940W2LJUc2","11-12", 3,"B1", "사람4 사람 5 사람 6 ", "공부해라 ~ " )
+        ReservedRoomVO("nJetJfyNZ5Sztj69ny940W2LJUc2","eunju lee", "lee" ," 공부해라", "사람 1 사람 2 사람 3 ", "2023-12-03","C1",2 ),
+
     )
 
 
@@ -92,12 +91,10 @@ class ReservationConfirmFragment : Fragment() {
             var preSunday : LocalDateTime = LocalDateTime.now()
                 .with(TemporalAdjusters.previous(DayOfWeek.SUNDAY))
             for(i in 0..6){
-                Log.d("날짜만 :: ", week_day[i])
 
                 calendarList.apply {
                     add(CalendarVO(preSunday.plusDays(i.toLong()).format(dateFormat), week_day[i]))
                 }
-                Log.d("저번 주 일요일을 기준으로 시작합니다. ", preSunday.plusDays(i.toLong()).format(dateFormat))
             }
         }
         binding?.weekRecycler?.adapter = calendarAdapter

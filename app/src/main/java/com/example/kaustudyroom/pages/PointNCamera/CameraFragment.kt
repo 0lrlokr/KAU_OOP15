@@ -1,4 +1,4 @@
-package com.example.kaustudyroom
+package com.example.kaustudyroom.pages.PointNCamera
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.FragmentCameraBinding
 import com.example.kaustudyroom.viewmodel.CameraViewModel
-import com.example.kaustudyroom.viewmodel.SharedViewModel
 import java.io.File
 import java.util.concurrent.Executor
 
