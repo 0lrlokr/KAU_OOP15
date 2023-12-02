@@ -23,6 +23,7 @@ class AuthViewModel: ViewModel() {
     }
 
     fun getUserIdDirectly(): String {
+        // usreId : uid 가져오는 함수
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         return user?.uid ?: ""

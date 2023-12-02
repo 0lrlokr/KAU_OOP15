@@ -1,16 +1,24 @@
 package com.example.kaustudyroom.viewmodel
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
 
 class StudyRoomDataViewModel: ViewModel() {
+    val databaseReference = FirebaseDatabase.getInstance().reference
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val localDate: LocalDate = LocalDate.now()
     // StudyRoomFragment
     private val authViewModel = AuthViewModel()
 
@@ -66,7 +74,7 @@ class StudyRoomDataViewModel: ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addReserveData(){
-        val localDate: LocalDate = LocalDate.now()
+        val localDate = localDate
         val timeSlots = _timeSlots.value
         val floor = _floor.value?.toInt()
         val roomName = _studyRoomName.value.toString()
@@ -75,15 +83,10 @@ class StudyRoomDataViewModel: ViewModel() {
         val purpose = _purposeOfUse.value.toString()
         val userId = userId
 
-        val databaseReference = FirebaseDatabase.getInstance().reference
-
         //floor노드에 접근
         val floorNode = databaseReference.child("floor").child(floor.toString())
         //room노드에 접근
         val roomNode = floorNode.child(roomName.toString())
-
-
-
 
         for(timeSlot in timeSlots!!){
             //타임슬롯 하나 당 데이터 베이스 push한번씩
@@ -101,14 +104,44 @@ class StudyRoomDataViewModel: ViewModel() {
                 )
             )
 
-
-
-//            Log.d("addReserveData ! ","${timeSlot} 보낼거야 !! ")
-//            Log.d("addReserveData"," ${floor} ${roomName} ${userName} ${companions} ${purpose} ${timeSlot}")
-//            Log.d("today is ", "${localDate}")
-//            Log.d("userId is ", "${userId}")
-
         }
+
+    }
+
+    fun addUserReservedData(){
+        val pathToCheck = "User/$userId"
+        Log.d("addUserReservedData userId ","${userId}")
+
+        databaseReference.child(pathToCheck).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            //해당 uid 존재하지 않으면
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    println("해당 UID가 존재")
+                } else {
+                    println("해당 UID 존재하지 않음")
+                    val userPath = "User/$userId"
+
+                    databaseReference.child(userPath).setValue("")
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                println("새로운 사용자 데이터가 추가되었습니다.")
+                            } else {
+                                println("사용자 데이터 추가 실패: ${task.exception?.message}")
+                            }
+                        }
+                }
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("데이터베이스 읽기 실패: ${databaseError.message}")
+            }
+        })
+
+
+        Log.d("misson 데이터베이스 넣기","ㅇㅋㅇㅋ")
+
+
+
 
     }
 

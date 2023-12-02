@@ -46,6 +46,7 @@ class AdditionalInformationFragment : Fragment() {
             viewModel.updateUserDetails(binding?.txtName?.text.toString(), binding?.txtCompanion?.text.toString(), binding?.txtPurpose?.text.toString())
             // 버튼 클릭 시, 데이터베이스에 데이터 넣기 함수
             viewModel.addReserveData()
+            viewModel.addUserReservedData()
 
             findNavController().navigate(R.id.action_additionalInformationFragment_to_reservationConfirmFragment)
 

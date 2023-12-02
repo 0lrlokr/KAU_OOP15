@@ -24,17 +24,17 @@ class StudyRoomTimeTableFragment : Fragment() {
     private val timeTable = arrayOf(
         StudyroomTimeTable("09-10", 1, Estate.Available, false),
         StudyroomTimeTable("10-11", 2, Estate.Available,false),
-        StudyroomTimeTable("11-12", 3, Estate.InUse,false),
-        StudyroomTimeTable("12-13", 4, Estate.InUse,false),
-        StudyroomTimeTable("13-14", 5, Estate.InUse,false),
+        StudyroomTimeTable("11-12", 3, Estate.Available,false),
+        StudyroomTimeTable("12-13", 4, Estate.Available,false),
+        StudyroomTimeTable("13-14", 5, Estate.Available,false),
         StudyroomTimeTable("14-15", 6, Estate.Available,false),
-        StudyroomTimeTable("15-16", 7, Estate.InUse,false),
+        StudyroomTimeTable("15-16", 7, Estate.Available,false),
         StudyroomTimeTable("16-17", 8, Estate.Available,false),
-        StudyroomTimeTable("17-18", 9, Estate.NotAvailable,false),
-        StudyroomTimeTable("18-19", 10, Estate.NotAvailable,false),
+        StudyroomTimeTable("17-18", 9, Estate.Available,false),
+        StudyroomTimeTable("18-19", 10, Estate.Available,false),
         StudyroomTimeTable("19-20", 11, Estate.Available,false),
-        StudyroomTimeTable("20-21", 12, Estate.InUse,false),
-        StudyroomTimeTable("21-22", 13, Estate.InUse,false)
+        StudyroomTimeTable("20-21", 12, Estate.Available,false),
+        StudyroomTimeTable("21-22", 13, Estate.Available,false)
     )
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
