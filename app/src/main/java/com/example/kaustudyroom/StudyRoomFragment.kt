@@ -42,7 +42,7 @@ class StudyRoomFragment : Fragment() {
                     selectedFloor = 2
                 }
                 R.id.radio_floor3 -> {
-                    updateRoomBtn(2)
+                    updateRoomBtn(3)
                     selectedFloor = 3
                 }
             }
