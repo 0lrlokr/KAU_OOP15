@@ -108,8 +108,10 @@ class StudyRoomDataViewModel: ViewModel() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun addUserReservedData(){
         val pathToCheck = "User/$userId"
+        val pathToCheckDate = "User/$userId/$localDate"
         Log.d("addUserReservedData userId ","${userId}")
 
         databaseReference.child(pathToCheck).addListenerForSingleValueEvent(object :
@@ -118,10 +120,40 @@ class StudyRoomDataViewModel: ViewModel() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
                     println("해당 UID가 존재")
+                    //날짜 검사 -> 날짜 추가
+                    ////////////////////
+                    databaseReference.child(pathToCheckDate).addListenerForSingleValueEvent(object :
+                        ValueEventListener {
+                        override fun onDataChange(dateSnapshot: DataSnapshot) {
+                            if (dateSnapshot.exists()) {
+                                println("오늘 날짜에 이미 데이터가 존재합니다.")
+                                // 이미 오늘 날짜에 데이터가 존재하므로 추가 작업 필요 없음
+                            } else {
+                                println("오늘 날짜에 데이터가 존재하지 않음")
+                                // 바로 오늘 날짜 추가
+                                databaseReference.child(pathToCheckDate).setValue("")
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            println("오늘 날짜 데이터가 추가되었습니다.")
+                                        } else {
+                                            println("오늘 날짜 데이터 추가 실패: ${task.exception?.message}")
+                                        }
+                                    }
+                            }
+                        }
+
+                        override fun onCancelled(dateDatabaseError: DatabaseError) {
+                            println("날짜 데이터베이스 읽기 실패: ${dateDatabaseError.message}")
+                        }
+                    })
+                    ///////////
+
+
+
                 } else {
                     println("해당 UID 존재하지 않음")
+                    //바로 오늘 날짜 추가
                     val userPath = "User/$userId"
-
                     databaseReference.child(userPath).setValue("")
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -130,6 +162,17 @@ class StudyRoomDataViewModel: ViewModel() {
                                 println("사용자 데이터 추가 실패: ${task.exception?.message}")
                             }
                         }
+
+                    databaseReference.child(pathToCheckDate).setValue("")
+                        .addOnCompleteListener { task ->
+                            if(task.isSuccessful){
+                                println("오늘 날짜가 추가되었습니다. ")
+                            }else{
+                                println("날짜 생성 실패 : ${task.exception?.message}")
+                            }
+                        }
+
+
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
