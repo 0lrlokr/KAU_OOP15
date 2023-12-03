@@ -75,7 +75,7 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:background="@drawable/text_corner"
-            android:text="2층 스터디룸 C1"
+            android:text="2 층 스터디룸 C1"
             android:textSize="16sp" />
 
         <Button
@@ -84,7 +84,7 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:background="@drawable/text_corner"
-            android:text="2층 스터디룸 C2"
+            android:text="2 층 스터디룸 C2"
             android:textSize="16sp" />
 
         <Button
@@ -93,7 +93,7 @@
             android:layout_height="100dp"
             android:layout_margin="15dp"
             android:background="@drawable/text_corner"
-            android:text="2층 스터디룸 C3"
+            android:text="2 층 스터디룸 C3"
             android:textSize="16sp" />
 
     </LinearLayout>

@@ -61,8 +61,8 @@ class StudyRoomFragment : Fragment() {
 
     private fun setupRoomButton(button: Button, roomIfSecondFloor: String, roomIfThirdFloor: String) {
         button.setOnClickListener {
-            val selectedRoom = if (selectedFloor === 2) roomIfSecondFloor else roomIfThirdFloor
-            selectedFloor?.let { floor ->
+            val selectedRoom = if (selectedFloor == 2) roomIfSecondFloor else roomIfThirdFloor
+            selectedFloor.let { floor ->
                 viewModel.updateRoomDetails(floor, selectedRoom)
             }
             navTimeTableFrag()
