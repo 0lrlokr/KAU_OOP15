@@ -55,17 +55,15 @@ class CameraFragment : Fragment() {
         }
 
         binding.captureButton.setOnClickListener {
-            cameraViewModel.captureImage(outputDirectory, executor, { file ->
+            cameraViewModel.captureImage(outputDirectory, executor) { file ->
                 cameraViewModel.uploadImage(file, { downloadUrl ->
-                    Log.d("firebase upload url",downloadUrl)
+                    Log.d("firebase upload url", downloadUrl)
                     sharedViewModel.setLatestImageUrl(downloadUrl)
                     findNavController().navigate(R.id.action_cameraFragment_to_pointFragment)
                 }, { exception ->
                     Log.d("firebase upload", exception.toString())
                 })
-            }, { exception ->
-                Log.d("captureImage exception","captureImage exception $exception")
-            })
+            }
         }
     }
 

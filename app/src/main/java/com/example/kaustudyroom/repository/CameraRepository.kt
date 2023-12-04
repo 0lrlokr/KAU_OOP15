@@ -38,7 +38,7 @@ class CameraRepository {
         }
     }
 
-    fun captureImage(outputDirectory: File, executor: Executor, onImageCaptured: (File) -> Unit, onError: (ImageCaptureException) -> Unit) {
+    fun captureImage(outputDirectory: File, executor: Executor, onImageCaptured: (File) -> Unit) {
         val photoFile = createImageFile(outputDirectory)
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -74,5 +74,4 @@ class CameraRepository {
             onError(exception)
         }
     }
-
 }

@@ -1,10 +1,14 @@
 package com.example.kaustudyroom.pages.PointNCamera
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -12,9 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kaustudyroom.databinding.FragmentPointBinding
 import com.bumptech.glide.Glide
 import com.example.kaustudyroom.R
+import com.example.kaustudyroom.viewmodel.AuthViewModel
+import com.example.kaustudyroom.viewmodel.PointViewModel
 
 class PointFragment : Fragment() {
     var binding: FragmentPointBinding?= null
+    private val authViewModel = AuthViewModel()
+    val userId: String
+        get() = authViewModel.getUserIdDirectly()
+
+    private val pointViewModel = PointViewModel()
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -30,11 +41,23 @@ class PointFragment : Fragment() {
         binding = FragmentPointBinding.inflate(layoutInflater)
         return binding?.root
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.btnTakepicture?.setOnClickListener {
-            findNavController().navigate(R.id.action_pointFragment_to_cameraFragment)
+            pointViewModel.checkTimeSlotAndNavigate(userId)
         }
+
+        // db에서 현재시간에 해당하는 timeslot이 있으면 입실시간이므로 camera로 이동
+        pointViewModel.navigateToCameraFragment.observe( viewLifecycleOwner, Observer { shouldNavigate ->
+            if(shouldNavigate) {
+                findNavController().navigate(R.id.action_pointFragment_to_cameraFragment)
+            }
+        })
+        // db에서 현재시간에 해당하는 timeslot 없다면 입실시간이 아님
+        pointViewModel.showToastEvent.observe(viewLifecycleOwner, Observer { message ->
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        })
         binding?.recPoints?.layoutManager = LinearLayoutManager(requireContext())
         binding?.recPoints?.adapter = PointAdapter(points)
 

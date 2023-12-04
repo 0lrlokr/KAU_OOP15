@@ -1,6 +1,5 @@
 package com.example.kaustudyroom.viewmodel
 
-import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.lifecycle.LifecycleOwner
@@ -15,8 +14,8 @@ class CameraViewModel() : ViewModel() {
     fun startCamera(cameraProvider: ProcessCameraProvider, surfaceProvider: Preview.SurfaceProvider, lifecycleOwner: LifecycleOwner) {
         repository.startCamera(cameraProvider, surfaceProvider, lifecycleOwner)
     }
-    fun captureImage(outputDirectory: File, executor: Executor, onImageCaptured: (File) -> Unit, onError: (ImageCaptureException) -> Unit) {
-        repository.captureImage(outputDirectory, executor, onImageCaptured, onError)
+    fun captureImage(outputDirectory: File, executor: Executor, onImageCaptured: (File) -> Unit) {
+        repository.captureImage(outputDirectory, executor, onImageCaptured)
     }
 
     fun uploadImage(imageFile: File, onSuccess: (String) -> Unit, onError: (Exception) -> Unit) {
