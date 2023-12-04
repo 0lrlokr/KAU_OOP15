@@ -3,13 +3,14 @@ package com.example.kaustudyroom.pages.ReservationConfirm
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.ItemReservedListBinding
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
 
-class ReservedConfirmAdapter(val rList: Array<ReservedRoomVO>):
+class ReservedConfirmAdapter(val rList: MutableList<ReservedRoomVO>):
     RecyclerView.Adapter<ReservedConfirmAdapter.ReservationViewHolder>() {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReservationViewHolder {
         val binding = ItemReservedListBinding.inflate(LayoutInflater.from(parent.context))
@@ -25,7 +26,7 @@ class ReservedConfirmAdapter(val rList: Array<ReservedRoomVO>):
     class ReservationViewHolder(private val binding: ItemReservedListBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(rList : ReservedRoomVO){
             binding.reservedTime.text = "| "+ rList.timeSlot
-            binding.reservedRoom.text = rList.floor.toString() + "층 " + rList.room
+            binding.reservedRoom.text = rList.floor + "층 " + rList.room
             binding.roomCompanion.text = "동반인: "+rList.companions
             binding.roomPurpose.text = "목적 : "+rList.purpose
 
@@ -38,10 +39,13 @@ class ReservedConfirmAdapter(val rList: Array<ReservedRoomVO>):
                 "B2" -> binding.roomImgView.setImageResource(R.drawable._b2)
 
 
-
-
             }
         }
+    }
+    fun addItems(items: List<ReservedRoomVO>) {
+        rList.clear()
+        rList.addAll(items)
+        notifyDataSetChanged()
     }
 
 }

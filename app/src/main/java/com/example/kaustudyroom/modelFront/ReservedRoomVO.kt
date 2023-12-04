@@ -1,14 +1,13 @@
 package com.example.kaustudyroom.modelFront
 
 data class ReservedRoomVO(
-    val userId: String,
     val userName: String?,
     val companions: String,
     val purpose: String,
     val timeSlot:String,
     val date: String,
     val room:String,
-    val floor:Int
+    val floor: String
 )
 
 data class ReservePushVO(
@@ -19,6 +18,11 @@ data class ReservePushVO(
 )
 
 data class CheckInVO(
+    val userName: String?,
+    val companions: String,
+    val purpose: String,
+    val room:String,
+    val floor: String,
     val checkInTime: String,
     val point: Int
 )
