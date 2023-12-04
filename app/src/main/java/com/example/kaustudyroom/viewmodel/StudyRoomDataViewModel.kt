@@ -261,7 +261,7 @@ class StudyRoomDataViewModel: ViewModel() {
             checkInNPointNode.setValue(
                 CheckInVO(
                     checkedInTime,
-                    point
+                    point,
                 )
             )
         }
