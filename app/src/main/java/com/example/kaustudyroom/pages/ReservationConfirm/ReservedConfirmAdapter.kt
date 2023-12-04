@@ -1,11 +1,14 @@
 package com.example.kaustudyroom.pages.ReservationConfirm
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.ItemReservedListBinding
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
+import com.example.kaustudyroom.viewmodel.AuthViewModel
+import com.google.firebase.database.FirebaseDatabase
 
 class ReservedConfirmAdapter(val rList: MutableList<ReservedRoomVO>):
     RecyclerView.Adapter<ReservedConfirmAdapter.ReservationViewHolder>() {
@@ -24,11 +27,33 @@ class ReservedConfirmAdapter(val rList: MutableList<ReservedRoomVO>):
     override fun getItemCount(): Int = rList.size
 
     class ReservationViewHolder(private val binding: ItemReservedListBinding):RecyclerView.ViewHolder(binding.root){
+        // 로그인 후, userId가져오기
+        private val authViewModel = AuthViewModel()
+        val userId: String
+            get() = authViewModel.getUserIdDirectly()
+
+
+        val databaseReference = FirebaseDatabase.getInstance().reference
+
         fun bind(rList : ReservedRoomVO){
             binding.reservedTime.text = "| "+ rList.timeSlot
             binding.reservedRoom.text = rList.floor + "층 " + rList.room
             binding.roomCompanion.text = "동반인: "+rList.companions
             binding.roomPurpose.text = "목적 : "+rList.purpose
+            binding.deleteBtn.setOnClickListener {
+                val clickedTimeSlot = rList.timeSlot
+                Log.d("버튼 클릭 시 , rList","$rList")
+                //rList date있오 , rList timeSlot있어 ~
+                //1. User Table에서 삭제
+                val userReservationRef = databaseReference.child("User").child("$userId").child("${rList.date}").child("${rList.timeSlot}")
+                userReservationRef.removeValue()
+
+
+                //2.floor table에서 삭제
+                val timeTableReservationRef = databaseReference.child("floor").child("${rList.floor}").child("${rList.room}").child("${rList.date}").child("${rList.timeSlot}")
+                timeTableReservationRef.removeValue()
+
+            }
 
             when(rList.room){
                 "C1" -> binding.roomImgView.setImageResource(R.drawable._c1)
@@ -37,8 +62,6 @@ class ReservedConfirmAdapter(val rList: MutableList<ReservedRoomVO>):
                 "A1" -> binding.roomImgView.setImageResource(R.drawable._a1)
                 "B1" -> binding.roomImgView.setImageResource(R.drawable._b1)
                 "B2" -> binding.roomImgView.setImageResource(R.drawable._b2)
-
-
             }
         }
     }

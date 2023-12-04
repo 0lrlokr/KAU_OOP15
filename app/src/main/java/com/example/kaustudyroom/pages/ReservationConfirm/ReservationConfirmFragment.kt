@@ -78,6 +78,8 @@ class ReservationConfirmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         // viewmodel 확인용 Logcat print
         viewModel.userName.observe(viewLifecycleOwner) { name ->
             Log.d("Fragment3", "name: $name")
@@ -152,6 +154,9 @@ class ReservationConfirmFragment : Fragment() {
         })
 
         binding?.reservationRecycler?.adapter = reservedRoomAdapter
+
+
+
 
 
     }
