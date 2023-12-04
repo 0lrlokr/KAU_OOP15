@@ -108,8 +108,6 @@ class StudyRoomDataViewModel: ViewModel() {
         val floor = _floor.value?.toInt()
         val roomName = _studyRoomName.value.toString()
         val userName = _userName.value.toString()
-        val companions = _companions.value.toString()
-        val purpose = _purposeOfUse.value.toString()
         val userId = userId
 
         val pathToCheck = "floor/$floor/$localDate"
@@ -156,8 +154,6 @@ class StudyRoomDataViewModel: ViewModel() {
                 ReservePushVO(
                     userId,
                     userName,
-                    companions,
-                    purpose,
                 )
             )
 

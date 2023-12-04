@@ -13,8 +13,6 @@ data class ReservedRoomVO(
 data class ReservePushVO(
     val userId: String,
     val userName: String?,
-    val companions: String,
-    val purpose: String,
 )
 
 data class CheckInVO(

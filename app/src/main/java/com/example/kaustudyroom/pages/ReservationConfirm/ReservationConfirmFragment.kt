@@ -49,13 +49,6 @@ class ReservationConfirmFragment : Fragment() {
     private lateinit var reservedRoomAdapter: ReservedConfirmAdapter
     private lateinit var reservedRoomList : ArrayList<ReservedRoomVO>
 
-//    private val reservedRoom = mutableListOf(
-//        ReservedRoomVO("", "" ," 공부해라","10-11","2023-12-04","C1","2"),
-//        ReservedRoomVO("eunju lee", "lee" ," 공부해라","10-11","2023-12-04","C1","2"),
-//        ReservedRoomVO("eunju lee", "lee" ," 공부해라","10-11","2023-12-04","C1","2"),
-//
-//
-//    )
 
 
 
