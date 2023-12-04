@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
 import com.example.kaustudyroom.modelFront.CheckInVO
-import com.example.kaustudyroom.modelFront.ReservePushVO
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -112,52 +111,24 @@ class StudyRoomDataViewModel: ViewModel() {
         val purpose = _purposeOfUse.value.toString()
         val userId = userId
 
-        val pathToCheck = "floor/$floor/$localDate"
-        //////////// 데이터베이스 구조 변형 -> 예약 (오늘) 날짜 유무 검사 필요
-        databaseReference.child(pathToCheck).addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(dateSnapshot: DataSnapshot) {
-                if (!dateSnapshot.exists()) {
-                    println("해당 날짜가 존재 하지 않아서 날짜 데이터 생성")
-                    databaseReference.child(pathToCheck).setValue("")
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                println("오늘 날짜 데이터가 추가되었습니다.")
-                            } else {
-                                println("오늘 날짜 데이터 추가 실패: ${task.exception?.message}")
-                            }
-                        }
-                }
-
-            }
-
-            override fun onCancelled(dateDatabaseError: DatabaseError) {
-                println("날짜 데이터베이스 읽기 실패: ${dateDatabaseError.message}")
-            }
-        })
-        ////////////////
-
-
-
-        ///
         //floor노드에 접근
         val floorNode = databaseReference.child("floor").child(floor.toString())
         //room노드에 접근
         val roomNode = floorNode.child(roomName.toString())
-        // date노드에 접근
-        val dateNode = roomNode.child(localDate.toString())
 
         for(timeSlot in timeSlots!!){
             //타임슬롯 하나 당 데이터 베이스 push한번씩
-            val timeSlotNode = dateNode.child(timeSlot)
-
-            val reservationNode = timeSlotNode
+            val reservationNode = roomNode.push()
             reservationNode.setValue(
-                ReservePushVO(
+                ReservedRoomVO(
                     userId,
                     userName,
                     companions,
                     purpose,
+                    timeSlot,
+                    localDate.toString(),
+                    roomName,
+                    floor!!
                 )
             )
 
@@ -168,11 +139,9 @@ class StudyRoomDataViewModel: ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun addUserReservedData(){
         val mergedTimeSlots = _timeSlots.value?.let { mergeTimeSlots(it) }
-        Log.d("권용현이 만든 mergedTimeSlots","$mergedTimeSlots")
+        println(mergedTimeSlots)
         val pathToCheckTimeList = mutableListOf<String>()
         for (timeslot in mergedTimeSlots!!) {
-            Log.d("권용현이 만든 timeSlot :: ","$timeslot")
-            // ? ?
             pathToCheckTimeList.add("User/$userId/$localDate/$timeslot")
         }
         println(pathToCheckTimeList)
@@ -209,17 +178,14 @@ class StudyRoomDataViewModel: ViewModel() {
                             println("날짜 데이터베이스 읽기 실패: ${dateDatabaseError.message}")
                         }
                     })
-                    ////////////////////////ok
                     //timeslot 검사 -> timeslot 추가
-                    for( timeslot in mergedTimeSlots ) {
-                        val pathToCheckIn = "User/$userId/$localDate/$timeslot"
-                        Log.d("권용현이 pathToCheckIn","$pathToCheckIn")
-                        databaseReference.child(pathToCheckIn).addListenerForSingleValueEvent(object :
+                    for( pathToCheckTime in pathToCheckTimeList ) {
+                        databaseReference.child(pathToCheckTime).addListenerForSingleValueEvent(object :
                             ValueEventListener {
                             override fun onDataChange(dateSnapshot: DataSnapshot) {
                                 if (!dateSnapshot.exists()) {
                                     println("timeslot이 존재 하지 않아서 timeslot 데이터 생성")
-                                    databaseReference.child(pathToCheckIn).setValue("")
+                                    databaseReference.child(pathToCheckTime).setValue("")
                                         .addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
                                                 println("오늘 timeslot 데이터가 추가되었습니다.")
@@ -228,11 +194,21 @@ class StudyRoomDataViewModel: ViewModel() {
                                             }
                                         }
                                 }
-                                //val timeSlotNode = dateNode.child(timeSlot)
-
-
                                 // timeslot 추가 후에 해당 timeslot 밑에 checkInTime과 point 노드 삽입
+                                // User노드에 접근
+                                val userNode = databaseReference.child("user").child(userId)
+                                // date노드에 접근
+                                val dateNode = userNode.child(localDate.toString())
+                                // timeslot노드에 접근
+                                val timeNode = dateNode.child(pathToCheckTime)
 
+                                    val checkInNPointNode = timeNode.push()
+                                    checkInNPointNode.setValue(
+                                        CheckInVO(
+                                            "",
+                                            1
+                                        )
+                                )
 
                             }
                             override fun onCancelled(dateDatabaseError: DatabaseError) {
@@ -246,25 +222,6 @@ class StudyRoomDataViewModel: ViewModel() {
                 println("데이터베이스 읽기 실패: ${databaseError.message}")
             }
         })
-
-        for( timeslot in mergedTimeSlots ) {
-            // User노드에 접근
-            val userNode = databaseReference.child("User").child(userId)
-            // date노드에 접근
-            val dateNode = userNode.child(localDate.toString())
-            // timeslot노드에 접근
-            val timeNode = dateNode.child(timeslot)
-
-            val checkedInTime = ""
-            val point= 1
-            val checkInNPointNode = timeNode
-            checkInNPointNode.setValue(
-                CheckInVO(
-                    checkedInTime,
-                    point
-                )
-            )
-        }
         Log.d("misson 데이터베이스 넣기","ㅇㅋㅇㅋ")
     }
 
