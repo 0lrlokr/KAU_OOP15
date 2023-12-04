@@ -29,6 +29,9 @@ class CalenderAdapter(private val cList :List<CalendarVO>):
                         //캘린더에 오늘 날짜 색상 적용
                         if(today == now){
                             binding.weekCardview.setBackgroundResource(R.drawable.background_blue)
+
+
+
                         }
                     }
                 }

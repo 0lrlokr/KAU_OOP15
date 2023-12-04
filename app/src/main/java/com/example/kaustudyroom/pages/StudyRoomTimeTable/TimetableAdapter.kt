@@ -42,6 +42,7 @@ class TimetableAdapter(private val timeTable: Array<StudyroomTimeTable>, private
             when(timeTable.state){
                 Estate.InUse -> {
                     binding.btnStudyroomState.setBackgroundResource(R.drawable.gray_color)
+                    binding.btnStudyroomState.textOff =  timeTable.state.toString()
                 }
 
                 Estate.NotAvailable ->{

@@ -108,8 +108,6 @@ class StudyRoomDataViewModel: ViewModel() {
         val floor = _floor.value?.toInt()
         val roomName = _studyRoomName.value.toString()
         val userName = _userName.value.toString()
-        val companions = _companions.value.toString()
-        val purpose = _purposeOfUse.value.toString()
         val userId = userId
 
         val pathToCheck = "floor/$floor/$localDate"
@@ -156,8 +154,6 @@ class StudyRoomDataViewModel: ViewModel() {
                 ReservePushVO(
                     userId,
                     userName,
-                    companions,
-                    purpose,
                 )
             )
 
@@ -167,6 +163,13 @@ class StudyRoomDataViewModel: ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addUserReservedData(){
+
+        val floor = _floor.value.toString()
+        val roomName = _studyRoomName.value.toString()
+        val userName = _userName.value.toString()
+        val companions = _companions.value.toString()
+        val purpose = _purposeOfUse.value.toString()
+
         val mergedTimeSlots = _timeSlots.value?.let { mergeTimeSlots(it) }
         Log.d("권용현이 만든 mergedTimeSlots","$mergedTimeSlots")
         val pathToCheckTimeList = mutableListOf<String>()
@@ -260,13 +263,20 @@ class StudyRoomDataViewModel: ViewModel() {
             val checkInNPointNode = timeNode
             checkInNPointNode.setValue(
                 CheckInVO(
+                    userName,
+                    companions,
+                    purpose,
+                    roomName,
+                    floor,
                     checkedInTime,
                     point,
                 )
             )
         }
-        Log.d("misson 데이터베이스 넣기","ㅇㅋㅇㅋ")
     }
+
+
+
 
 
 

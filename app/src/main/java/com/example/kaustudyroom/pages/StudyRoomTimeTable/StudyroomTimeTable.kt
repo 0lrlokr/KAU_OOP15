@@ -9,6 +9,6 @@ enum class Estate {
 data class StudyroomTimeTable(
     val time: String,
     val id: Int,
-    val state: Estate,
+    var state: Estate,
     val isSelected: Boolean
 )
