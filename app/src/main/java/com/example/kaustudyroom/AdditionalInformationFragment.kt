@@ -13,11 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.kaustudyroom.databinding.FragmentAdditionalInformationBinding
 import com.example.kaustudyroom.viewmodel.StudyRoomDataViewModel
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AdditionalInformationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AdditionalInformationFragment : Fragment() {
     val viewModel: StudyRoomDataViewModel by activityViewModels()
     var binding: FragmentAdditionalInformationBinding ?= null

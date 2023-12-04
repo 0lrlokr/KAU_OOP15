@@ -9,5 +9,9 @@ data class ReservedRoomVO(
     val date: String,
     val room:String,
     val floor:Int
+)
 
+data class CheckInVO(
+    val checkInTime: String,
+    val point: Int
 )

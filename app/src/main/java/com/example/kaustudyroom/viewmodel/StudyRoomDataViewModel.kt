@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kaustudyroom.modelFront.ReservedRoomVO
+import com.example.kaustudyroom.modelFront.CheckInVO
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -71,6 +72,33 @@ class StudyRoomDataViewModel: ViewModel() {
         _purposeOfUse.value = purpose
     }
 
+    fun mergeTimeSlots(timeSlots: List<String>): List<String> {
+        if (timeSlots.isEmpty()) {
+            return emptyList()
+        }
+
+        val sortedTimeSlots = timeSlots.sorted()
+        val mergedTimeSlots = mutableListOf<String>()
+
+        var currentStartTime = sortedTimeSlots[0].split("-")[0]
+        var currentEndTime = sortedTimeSlots[0].split("-")[1]
+
+        for (i in 1 until sortedTimeSlots.size) {
+            val nextStartTime = sortedTimeSlots[i].split("-")[0]
+            val nextEndTime = sortedTimeSlots[i].split("-")[1]
+
+            if (currentEndTime == nextStartTime) {
+                currentEndTime = nextEndTime
+            } else {
+                mergedTimeSlots.add("$currentStartTime-$currentEndTime")
+                currentStartTime = nextStartTime
+                currentEndTime = nextEndTime
+            }
+        }
+        mergedTimeSlots.add("$currentStartTime-$currentEndTime")
+        return mergedTimeSlots
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addReserveData(){
@@ -110,27 +138,30 @@ class StudyRoomDataViewModel: ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addUserReservedData(){
+        val mergedTimeSlots = _timeSlots.value?.let { mergeTimeSlots(it) }
+        println(mergedTimeSlots)
+        val pathToCheckTimeList = mutableListOf<String>()
+        for (timeslot in mergedTimeSlots!!) {
+            pathToCheckTimeList.add("User/$userId/$localDate/$timeslot")
+        }
+        println(pathToCheckTimeList)
+
         val pathToCheck = "User/$userId"
         val pathToCheckDate = "User/$userId/$localDate"
         Log.d("addUserReservedData userId ","${userId}")
 
         databaseReference.child(pathToCheck).addListenerForSingleValueEvent(object :
             ValueEventListener {
-            //해당 uid 존재하지 않으면
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // 해당 UID가 존재하면
                 if (dataSnapshot.exists()) {
                     println("해당 UID가 존재")
                     //날짜 검사 -> 날짜 추가
-                    ////////////////////
                     databaseReference.child(pathToCheckDate).addListenerForSingleValueEvent(object :
                         ValueEventListener {
                         override fun onDataChange(dateSnapshot: DataSnapshot) {
-                            if (dateSnapshot.exists()) {
-                                println("오늘 날짜에 이미 데이터가 존재합니다.")
-                                // 이미 오늘 날짜에 데이터가 존재하므로 추가 작업 필요 없음
-                            } else {
-                                println("오늘 날짜에 데이터가 존재하지 않음")
-                                // 바로 오늘 날짜 추가
+                            if (!dateSnapshot.exists()) {
+                                println("해당 날짜가 존재 하지 않아서 날짜 데이터 생성")
                                 databaseReference.child(pathToCheckDate).setValue("")
                                     .addOnCompleteListener { task ->
                                         if (task.isSuccessful) {
@@ -140,52 +171,58 @@ class StudyRoomDataViewModel: ViewModel() {
                                         }
                                     }
                             }
+
                         }
 
                         override fun onCancelled(dateDatabaseError: DatabaseError) {
                             println("날짜 데이터베이스 읽기 실패: ${dateDatabaseError.message}")
                         }
                     })
-                    ///////////
+                    //timeslot 검사 -> timeslot 추가
+                    for( pathToCheckTime in pathToCheckTimeList ) {
+                        databaseReference.child(pathToCheckTime).addListenerForSingleValueEvent(object :
+                            ValueEventListener {
+                            override fun onDataChange(dateSnapshot: DataSnapshot) {
+                                if (!dateSnapshot.exists()) {
+                                    println("timeslot이 존재 하지 않아서 timeslot 데이터 생성")
+                                    databaseReference.child(pathToCheckTime).setValue("")
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                println("오늘 timeslot 데이터가 추가되었습니다.")
+                                            } else {
+                                                println("오늘 timeslot 데이터 추가 실패: ${task.exception?.message}")
+                                            }
+                                        }
+                                }
+                                // timeslot 추가 후에 해당 timeslot 밑에 checkInTime과 point 노드 삽입
+                                // User노드에 접근
+                                val userNode = databaseReference.child("user").child(userId)
+                                // date노드에 접근
+                                val dateNode = userNode.child(localDate.toString())
+                                // timeslot노드에 접근
+                                val timeNode = dateNode.child(pathToCheckTime)
 
+                                    val checkInNPointNode = timeNode.push()
+                                    checkInNPointNode.setValue(
+                                        CheckInVO(
+                                            "",
+                                            1
+                                        )
+                                )
 
-
-                } else {
-                    println("해당 UID 존재하지 않음")
-                    //바로 오늘 날짜 추가
-                    val userPath = "User/$userId"
-                    databaseReference.child(userPath).setValue("")
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                println("새로운 사용자 데이터가 추가되었습니다.")
-                            } else {
-                                println("사용자 데이터 추가 실패: ${task.exception?.message}")
                             }
-                        }
-
-                    databaseReference.child(pathToCheckDate).setValue("")
-                        .addOnCompleteListener { task ->
-                            if(task.isSuccessful){
-                                println("오늘 날짜가 추가되었습니다. ")
-                            }else{
-                                println("날짜 생성 실패 : ${task.exception?.message}")
+                            override fun onCancelled(dateDatabaseError: DatabaseError) {
+                                println("timeslot 데이터베이스 읽기 실패: ${dateDatabaseError.message}")
                             }
-                        }
-
-
+                        })
+                    }
                 }
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 println("데이터베이스 읽기 실패: ${databaseError.message}")
             }
         })
-
-
         Log.d("misson 데이터베이스 넣기","ㅇㅋㅇㅋ")
-
-
-
-
     }
 
 
