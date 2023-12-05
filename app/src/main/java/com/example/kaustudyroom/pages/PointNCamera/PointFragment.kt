@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class PointFragment : Fragment() {
     var binding: FragmentPointBinding?= null
@@ -33,12 +35,6 @@ class PointFragment : Fragment() {
     private val pointViewModel = PointViewModel()
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
-
-//    private val points = arrayOf(
-//        Point("2023-10-10", "2층 스터디룸 A", 1),
-//        Point("2023-10-15", "2층 스터디룸 B-1", 2),
-//        Point("2023-10-23", "3층 스터디룸 C-1", 2)
-//    )
 
     private val pointList = mutableListOf<Point>(
         Point("","",0, "")
@@ -84,13 +80,20 @@ class PointFragment : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var pointSum = 0
                 pointList.clear()
+
+                val currentDateTime = LocalDateTime.now()
+
                 for ( userSnapshot in dataSnapshot.children ) {
-                    val date = userSnapshot.key.toString()
+                    val date = userSnapshot.key.toString() // ex) 2023-12-06
                     for ( dateSnapshot in userSnapshot.children ) {
                         val point = dateSnapshot.child("point").value.toString().toInt()
-                        if (point > 0) {
+                        val timeslot = dateSnapshot.key.toString() // ex) 10-13
+                        val startTime = timeslot.slice(0 until 2)
+
+                        val timeslotDateTime = LocalDateTime.parse("$date $startTime", DateTimeFormatter.ofPattern("yyyy-MM-dd HH"))
+                        Log.d("timeslotDateTime", "$timeslotDateTime")
+                        if (point > 0 && !timeslotDateTime.isAfter(currentDateTime)) {
                             pointSum += point
-                            val timeslot = dateSnapshot.key.toString()
                             val floor = dateSnapshot.child("floor").value
                             val room = dateSnapshot.child("room").value
                             val roomName = floor.toString() + "층 스터디룸" + room
