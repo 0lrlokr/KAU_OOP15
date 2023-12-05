@@ -23,7 +23,8 @@ class PointRepository {
 
         for (i in 1 until 4) {
             val startTime: String = currentTime
-            val endTime: String = (currentTime.toInt() + i).toString()
+            val endTime: String = if ((currentTime.toInt() + i) >= 10) {(currentTime.toInt() + i).toString()}
+            else { "0"+(currentTime.toInt() + i).toString()}
             val currentTimeSlot: String = "$startTime-$endTime"
             println("Checking for currentTimeSlot: $currentTimeSlot")
 

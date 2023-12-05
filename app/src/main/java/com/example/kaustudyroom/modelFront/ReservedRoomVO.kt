@@ -24,3 +24,9 @@ data class CheckInVO(
     val checkInTime: String,
     val point: Int
 )
+
+data class PointV0(
+    val date: String?,
+    val roomName: String?,
+    val point: Int,
+)

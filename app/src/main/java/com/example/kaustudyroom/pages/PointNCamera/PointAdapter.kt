@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.databinding.ListPointBinding
 
-class PointAdapter(val point: Array<Point>): RecyclerView.Adapter<PointAdapter.Holder>() {
+class PointAdapter(val point: MutableList<Point>): RecyclerView.Adapter<PointAdapter.Holder>() {
     // ViewHolder 객체를 생성하고 초기화
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListPointBinding.inflate(LayoutInflater.from(parent.context))
@@ -24,8 +24,8 @@ class PointAdapter(val point: Array<Point>): RecyclerView.Adapter<PointAdapter.H
         fun bind(point: Point) {
             binding.txtDate.text = point.date
             binding.txtRoom.text = point.room
-            binding.txtPoint.text = point.point.toString()
-            binding.txtReason.text = point.reason
+            binding.txtPoint.text = point.point.toString() + "점"
+            binding.txtTimeslot.text = point.timeslot
         }
     }
 }

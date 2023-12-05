@@ -1,10 +1,14 @@
 package com.example.kaustudyroom.viewmodel
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.kaustudyroom.repository.CameraRepository
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.concurrent.Executor
 
@@ -18,7 +22,10 @@ class CameraViewModel() : ViewModel() {
         repository.captureImage(outputDirectory, executor, onImageCaptured)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun uploadImage(imageFile: File, onSuccess: (String) -> Unit, onError: (Exception) -> Unit) {
-        repository.uploadImageToFirebaseStorage(imageFile, onSuccess, onError)
+        viewModelScope.launch {
+            repository.uploadImageToFirebaseStorage(imageFile, onSuccess, onError)
+        }
     }
 }
