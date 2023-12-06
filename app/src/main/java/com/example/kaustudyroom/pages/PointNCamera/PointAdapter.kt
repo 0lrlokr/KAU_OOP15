@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.databinding.ListPointBinding
 
-class PointAdapter(val point: MutableList<Point>): RecyclerView.Adapter<PointAdapter.Holder>() {
+class PointAdapter(val point: List<Point>): RecyclerView.Adapter<PointAdapter.Holder>() {
     // ViewHolder 객체를 생성하고 초기화
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val binding = ListPointBinding.inflate(LayoutInflater.from(parent.context))

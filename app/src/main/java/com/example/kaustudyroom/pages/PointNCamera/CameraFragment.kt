@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -24,8 +25,7 @@ import java.util.concurrent.Executor
 
 class CameraFragment : Fragment() {
 
-    private var _binding: FragmentCameraBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentCameraBinding ?= null
     private val cameraViewModel: CameraViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -35,29 +35,31 @@ class CameraFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCameraBinding.inflate(inflater, container, false)
-        return binding.root
+    ): ConstraintLayout? {
+        binding = FragmentCameraBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
         val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
         executor = ContextCompat.getMainExecutor(requireContext())
         outputDirectory = getOutputDirectory()
 
+        // 카메라 접근 permission을 했는지 확인 후에 카메라 시작
         if (allPermissionsGranted()) {
-            cameraViewModel.startCamera(cameraProvider, binding.cameraPreview.surfaceProvider,viewLifecycleOwner)
+            binding?.cameraPreview?.let { cameraViewModel.startCamera(cameraProvider, it.surfaceProvider,viewLifecycleOwner) }
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
             )
         }
 
-        binding.captureButton.setOnClickListener {
+        // 촬영 버튼을 누르면 1.사진촬영, 2.이미지업로드, 3.이미지url을 viewmodel에 저장 후 다시 PointFragment로 이동
+        binding?.captureButton?.setOnClickListener {
             cameraViewModel.captureImage(outputDirectory, executor) { file ->
                 cameraViewModel.uploadImage(file, { downloadUrl ->
                     Log.d("firebase upload url", downloadUrl)
@@ -83,7 +85,7 @@ class CameraFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
     }
 
     companion object {

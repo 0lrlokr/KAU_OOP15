@@ -4,18 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.kaustudyroom.databinding.FragmentStudyRoomBinding
+import com.example.kaustudyroom.viewmodel.AuthViewModel
+import com.example.kaustudyroom.viewmodel.PointViewModel
 import com.example.kaustudyroom.viewmodel.StudyRoomDataViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class StudyRoomFragment : Fragment() {
-    val viewModel: StudyRoomDataViewModel by activityViewModels()
+    private val viewModel: StudyRoomDataViewModel by activityViewModels()
+    private val pointViewModel = PointViewModel()
+    private val authViewModel = AuthViewModel()
+    private val userId: String = authViewModel.getUserIdDirectly()
     var binding: FragmentStudyRoomBinding?= null
     var selectedFloor: Int = 2
 
@@ -49,23 +54,30 @@ class StudyRoomFragment : Fragment() {
         }
 
         binding?.btnRoomA?.setOnClickListener {
-            setupRoomButton(binding?.btnRoomA!!, "C1", "A")
+            setupRoomButton("C1", "A")
         }
         binding?.btnRoomB?.setOnClickListener {
-            setupRoomButton(binding?.btnRoomB!!, "C2", "B1")
+            setupRoomButton("C2", "B1")
         }
         binding?.btnRoomC?.setOnClickListener {
-            setupRoomButton(binding?.btnRoomC!!, "C3", "B2")
+            setupRoomButton("C3", "B2")
         }
     }
 
-    private fun setupRoomButton(button: Button, roomIfSecondFloor: String, roomIfThirdFloor: String) {
-        button.setOnClickListener {
-            val selectedRoom = if (selectedFloor == 2) roomIfSecondFloor else roomIfThirdFloor
-            selectedFloor.let { floor ->
-                viewModel.updateRoomDetails(floor, selectedRoom)
+    private fun setupRoomButton(roomIfSecondFloor: String, roomIfThirdFloor: String) {
+        // 벌점 조회
+        pointViewModel.loadPoints(userId)
+        // 벌점 3점 미만일 때만 예약 가능용
+        pointViewModel.totalPoints.observe(viewLifecycleOwner) { totalPoints ->
+            if (totalPoints < 3) {
+                val selectedRoom = if (selectedFloor == 2) roomIfSecondFloor else roomIfThirdFloor
+                selectedFloor.let { floor ->
+                    viewModel.updateRoomDetails(floor, selectedRoom)
+                }
+                navTimeTableFrag()
+            } else {
+                Toast.makeText(requireContext(), "벌점 3점을 넘으면 스터디룸 예약이 불가능합니다.", Toast.LENGTH_SHORT).show()
             }
-            navTimeTableFrag()
         }
     }
 

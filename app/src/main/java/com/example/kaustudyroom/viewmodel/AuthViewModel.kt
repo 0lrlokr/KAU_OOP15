@@ -1,12 +1,10 @@
 package com.example.kaustudyroom.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kaustudyroom.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
-import java.sql.RowId
 
 class AuthViewModel: ViewModel() {
     private val _loginStatus = MutableLiveData<Boolean>()
@@ -27,7 +25,5 @@ class AuthViewModel: ViewModel() {
         val auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         return user?.uid ?: ""
-
-        Log.d("getUserIdDirectly로 가져오기","${user?.uid}")
     }
 }
