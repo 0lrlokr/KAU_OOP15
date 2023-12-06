@@ -119,6 +119,8 @@ class ReservationConfirmFragment : Fragment() {
 
         binding?.reservationRecycler?.layoutManager = LinearLayoutManager(requireContext())
 
+
+
         // DB에서 값 가져오기
         val reservedRoomDBRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("User").child("$userId")
 
@@ -152,6 +154,11 @@ class ReservationConfirmFragment : Fragment() {
         })
 
         binding?.reservationRecycler?.adapter = reservedRoomAdapter
+
+
+
+
+
     }
 
     override fun onDestroyView() {

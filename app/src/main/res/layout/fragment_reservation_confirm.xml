@@ -12,39 +12,25 @@
 >
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textYearMonth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="2023-12"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textYearMonth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="2023-12"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/week_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/week_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reservation_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reservation_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            />
-    </LinearLayout>
+        />
 
 </LinearLayout>

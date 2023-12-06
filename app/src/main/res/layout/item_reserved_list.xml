@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="400dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@android:color/background_light"
@@ -27,7 +27,7 @@
 
         <ImageView
             android:id="@+id/room_img_view"
-            android:layout_width="179dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
@@ -41,13 +41,12 @@
 
             <TextView
                 android:id="@+id/reserved_room"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:text="2층 스터디룸 C1"
                 android:textAlignment="textStart"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/room_companion"
@@ -73,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="예약 취소" />
+        android:text="예약 취소"
+        />
 
 </LinearLayout>

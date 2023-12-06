@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -102,11 +103,14 @@ class StudyRoomTimeTableFragment : Fragment() {
         }
 
         binding?.btnChoose?.setOnClickListener {
-            if (selectedTimeSlots.size <= 3) {
+            if (selectedTimeSlots.size <= 3 && selectedTimeSlots.size!=0) {
                 viewModel.updateTimeSlots(selectedTimeSlots.toList())
                 findNavController().navigate(R.id.action_studyRoomTimeTableFragment_to_additionalInformationFragment)
                 selectedTimeSlots.clear()
-            } else {
+            } else if(selectedTimeSlots.size == 0){
+                Log.d("selectedTimeSlots.size = 0이야 ","${selectedTimeSlots.size}")
+                Toast.makeText(requireContext(), "1개 이상의 시간을 선택하세요", Toast.LENGTH_SHORT).show()
+            }else{
                 // Handle error: more than 3 time slots selected
             }
         }

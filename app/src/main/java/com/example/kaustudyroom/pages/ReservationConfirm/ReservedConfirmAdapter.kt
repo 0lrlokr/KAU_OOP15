@@ -42,12 +42,10 @@ class ReservedConfirmAdapter(val rList: MutableList<ReservedRoomVO>):
             binding.roomPurpose.text = "목적 : "+rList.purpose
             binding.deleteBtn.setOnClickListener {
                 val clickedTimeSlot = rList.timeSlot
-                Log.d("버튼 클릭 시 , rList","$rList")
-                //rList date있오 , rList timeSlot있어 ~
                 //1. User Table에서 삭제
                 val userReservationRef = databaseReference.child("User").child("$userId").child("${rList.date}").child("${rList.timeSlot}")
                 userReservationRef.removeValue()
-
+                Log.d("userId :: ","$userId")
 
                 //2.floor table에서 삭제
                 val timeTableReservationRef = databaseReference.child("floor").child("${rList.floor}").child("${rList.room}").child("${rList.date}").child("${rList.timeSlot}")
