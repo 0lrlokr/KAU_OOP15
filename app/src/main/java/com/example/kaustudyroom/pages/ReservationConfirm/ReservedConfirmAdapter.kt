@@ -57,7 +57,7 @@ class ReservedConfirmAdapter(val rList: MutableList<ReservedRoomVO>):
                 "C1" -> binding.roomImgView.setImageResource(R.drawable._c1)
                 "C2" -> binding.roomImgView.setImageResource(R.drawable._c2)
                 "C3" -> binding.roomImgView.setImageResource(R.drawable._c3)
-                "A1" -> binding.roomImgView.setImageResource(R.drawable._a1)
+                "A" -> binding.roomImgView.setImageResource(R.drawable._a1)
                 "B1" -> binding.roomImgView.setImageResource(R.drawable._b1)
                 "B2" -> binding.roomImgView.setImageResource(R.drawable._b2)
             }

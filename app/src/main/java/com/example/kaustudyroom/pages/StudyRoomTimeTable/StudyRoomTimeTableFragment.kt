@@ -38,6 +38,8 @@ class StudyRoomTimeTableFragment : Fragment() {
 
 
 
+
+
     private var timeTables = arrayOf(
         StudyroomTimeTable("09-10", 1, Estate.Available, false),
         StudyroomTimeTable("10-11", 2, Estate.Available,false),
@@ -72,7 +74,9 @@ class StudyRoomTimeTableFragment : Fragment() {
         Log.d("roomName : ","$roomName")
 
 
-        val timeTableDBRef = FirebaseDatabase.getInstance().reference.child("floor").child("$floor").child("$roomName").child("$localDate")
+        val timeTableDBRef = FirebaseDatabase.getInstance().reference.child("floor").child("$floor").child("$roomName").child("$localDate").child("")
+
+
 
         timeTableDBRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -91,10 +95,24 @@ class StudyRoomTimeTableFragment : Fragment() {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // 에러 처리
+                // 에러 처리(수정..)
                 Log.w("TAG", "loadPost:onCancelled", databaseError.toException())
             }
         })
+
+        var totalReservedTime = 0
+
+        //유저의 total reserved time을 나타내는 함수
+        timeTableDBRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                totalReservedTime = dataSnapshot.childrenCount.toInt()
+                println("자식 노드의 수: $totalReservedTime")
+                binding?.reservedTotalTime?.text = "Total Reserved Time :"+totalReservedTime.toString()+"h"+" / 3h"
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
+
 
 
         binding?.recTimetable?.layoutManager = LinearLayoutManager(requireContext())
@@ -102,17 +120,28 @@ class StudyRoomTimeTableFragment : Fragment() {
             binding?.txtStudyroom?.text = combinedText
         }
 
+
+
+        // Btn Click시,
         binding?.btnChoose?.setOnClickListener {
-            if (selectedTimeSlots.size <= 3 && selectedTimeSlots.size!=0) {
+            Log.d("selectedTimeSlots.size+totalReservedTime","${totalReservedTime+selectedTimeSlots.size}")
+            if (selectedTimeSlots.size <= 3 && selectedTimeSlots.size!=0 && totalReservedTime+selectedTimeSlots.size<4) {
                 viewModel.updateTimeSlots(selectedTimeSlots.toList())
                 findNavController().navigate(R.id.action_studyRoomTimeTableFragment_to_additionalInformationFragment)
                 selectedTimeSlots.clear()
             } else if(selectedTimeSlots.size == 0){
                 Log.d("selectedTimeSlots.size = 0이야 ","${selectedTimeSlots.size}")
-                Toast.makeText(requireContext(), "1개 이상의 시간을 선택하세요", Toast.LENGTH_SHORT).show()
-            }else{
+                Toast.makeText(requireContext(), "1개 이상의 시간을 선택하세요.", Toast.LENGTH_SHORT).show()
+            }
+            else if(totalReservedTime+selectedTimeSlots.size>3){
+                Log.d("selectedTimeSlots.size+totalReservedTime 초과 예약 불가에 걸림","${totalReservedTime+selectedTimeSlots.size}")
+                Toast.makeText(requireContext(), "3시간을 초과하여 예약할 수 없습니다. ", Toast.LENGTH_SHORT).show()
+            }
+            else{
                 // Handle error: more than 3 time slots selected
             }
+
+
         }
 
 
