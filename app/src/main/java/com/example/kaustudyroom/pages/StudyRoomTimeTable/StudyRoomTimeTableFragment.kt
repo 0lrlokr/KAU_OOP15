@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kaustudyroom.R
 import com.example.kaustudyroom.databinding.FragmentStudyRoomTimeTableBinding
+import com.example.kaustudyroom.viewmodel.AuthViewModel
 import com.example.kaustudyroom.viewmodel.StudyRoomDataViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,7 +25,10 @@ import com.google.firebase.database.ValueEventListener
 class StudyRoomTimeTableFragment : Fragment() {
     val viewModel: StudyRoomDataViewModel by activityViewModels()
     private val selectedTimeSlots = mutableSetOf<String>()
+    private val authViewModel = AuthViewModel()
 
+    val userId: String
+        get() = authViewModel.getUserIdDirectly()
     var binding: FragmentStudyRoomTimeTableBinding?= null
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TimetableAdapter
@@ -100,11 +104,14 @@ class StudyRoomTimeTableFragment : Fragment() {
             }
         })
 
+        val userDBRef = FirebaseDatabase.getInstance().reference.child("User").child("$userId").child("$localDate")
+
         var totalReservedTime = 0
 
         //유저의 total reserved time을 나타내는 함수
-        timeTableDBRef.addListenerForSingleValueEvent(object : ValueEventListener {
+        userDBRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                println("자식 노드 : $dataSnapshot")
                 totalReservedTime = dataSnapshot.childrenCount.toInt()
                 println("자식 노드의 수: $totalReservedTime")
                 binding?.reservedTotalTime?.text = "Total Reserved Time :"+totalReservedTime.toString()+"h"+" / 3h"
